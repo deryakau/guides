@@ -7,12 +7,12 @@ module.exports = {
   extends: [
     "eslint:recommended",
     "prettier",
-    require.resolve("@vercel/style-guide/eslint/next"),
+    "@vercel/style-guide/eslint/next",
     "eslint-config-turbo",
   ],
   globals: {
-    React: true,
-    JSX: true,
+    React: "readonly",
+    JSX: "readonly",
   },
   env: {
     node: true,
@@ -22,14 +22,18 @@ module.exports = {
   settings: {
     "import/resolver": {
       typescript: {
-        project,
+        project: [project],
       },
     },
   },
   ignorePatterns: [
-    // Ignore dotfiles
-    ".*.js",
+    // Ignore dotfiles and build artifacts
+    "*.js",
     "node_modules/",
   ],
-  overrides: [{ files: ["*.js?(x)", "*.ts?(x)"] }],
+  overrides: [
+    {
+      files: ["*.js", "*.jsx", "*.ts", "*.tsx"],
+    },
+  ],
 };
